@@ -1,0 +1,225 @@
+.TH "examples" 3 "29 Jan 2010" "Version Library version 2.6" "FieldTalk Modbus Master C++ Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+examples \- Examples 
+.SH "Serial Example"
+.PP
+The following example sersimple.cpp shows how to configure a serial Modbus protocol and read values:
+.PP
+.PP
+.nf
+
+// HM platform detection
+#include 'hmplatf.h'
+
+// Platform header
+#include <stdio.h>
+#include <stdlib.h>
+#if defined(__WIN32__)
+#  include <windows.h>
+#elif defined(__UNIX__)
+#  include <unistd.h>
+#endif
+
+// Include FieldTalk package header
+#include 'MbusAsciiMasterProtocol.hpp'
+#include 'MbusRtuMasterProtocol.hpp'
+
+
+/*****************************************************************************
+ * Gobal data
+ *****************************************************************************/
+
+#if defined(__WIN32__)
+#  if defined (_UNICODE)
+   TCHAR *portName = L'COM1';
+#  else
+   char *portName = 'COM1';
+#  endif
+#elif defined(__LINUX__)
+   char *portName = '/dev/ttyS0';
+#elif defined(__QNX__)
+   char *portName = '/dev/ser1';
+#elif defined(__VXWORKS__)
+   char *portName = '/tyCo/0';
+#elif defined(__SOLARIS__)
+   char *portName = '/dev/ttya';
+#else
+#  error Unknown serial port name, please add an entry for portName
+#endif
+
+//MbusAsciiMasterProtocol mbusProtocol; // Use this declaration for ASCII
+MbusRtuMasterProtocol mbusProtocol; // Use this declaration for RTU
+
+
+/*****************************************************************************
+ * Function implementation
+ *****************************************************************************/
+
+void openProtocol()
+{
+   int result;
+
+   result = mbusProtocol.openProtocol(portName,
+                                      19200L, // Baudrate
+                                      8,      // Databits
+                                      1,      // Stopbits
+                                      2);     // Even parity
+   if (result != FTALK_SUCCESS)
+   {
+      fprintf(stderr, 'Error opening protocol: %s!\n',
+                       getBusProtocolErrorText(result));
+      exit(EXIT_FAILURE);
+   }
+}
+
+
+void closeProtocol()
+{
+   mbusProtocol.closeProtocol();
+}
+
+
+void runPollLoop()
+{
+   short dataArr[10];
+
+   for (;;)
+   {
+      int i;
+      int result;
+
+      result = mbusProtocol.readMultipleRegisters(1, 100,
+                                                  dataArr,
+                                                  sizeof(dataArr) / 2);
+      if (result == FTALK_SUCCESS)
+         for (i = 0; i < int(sizeof(dataArr) / 2); i++)
+            printf('[%d]: %hd\n', 100 + i, dataArr[i]);
+      else
+      {
+         fprintf(stderr, '%s!\n', getBusProtocolErrorText(result));
+         // Stop for fatal errors
+         if (!(result & FTALK_BUS_PROTOCOL_ERROR_CLASS))
+            return;
+      }
+
+#ifdef __WIN32__
+      Sleep(1000);
+#else
+      sleep(1);
+#endif
+   }
+}
+
+
+int main()
+{
+   openProtocol();
+
+   runPollLoop();
+
+   closeProtocol();
+   return (EXIT_SUCCESS);
+}
+.fi
+.PP
+.SH "MODBUS/TCP Example"
+.PP
+The following example tcpsimple.cpp shows how to configure a MODBUS/TCP protocol and read values:
+.PP
+.PP
+.nf
+
+// Platform header
+#include <stdio.h>
+#include <stdlib.h>
+
+// Include FieldTalk package header
+#include 'MbusTcpMasterProtocol.hpp'
+
+
+/*****************************************************************************
+ * Gobal data
+ *****************************************************************************/
+
+#if defined (_UNICODE)
+TCHAR *hostName = L'10.0.0.11';
+#else
+char *hostName = '127.0.0.1';
+#endif
+MbusTcpMasterProtocol mbusProtocol;
+
+
+/*****************************************************************************
+ * Function implementation
+ *****************************************************************************/
+
+void openProtocol()
+{
+   int result;
+
+   result = mbusProtocol.openProtocol(hostName);
+   if (result != FTALK_SUCCESS)
+   {
+      fprintf(stderr, 'Error opening protocol: %s!\n',
+                       getBusProtocolErrorText(result));
+      exit(EXIT_FAILURE);
+   }
+}
+
+
+void closeProtocol()
+{
+   mbusProtocol.closeProtocol();
+}
+
+
+void runPollLoop()
+{
+   short dataArr[10];
+
+   for (;;)
+   {
+      int i;
+      int result;
+
+      result = mbusProtocol.readMultipleRegisters(1, 100,
+                                                  dataArr,
+                                                  sizeof(dataArr) / 2);
+      if (result == FTALK_SUCCESS)
+         for (i = 0; i < int(sizeof(dataArr) / 2); i++)
+            printf('[%d]: %hd\n', 100 + i, dataArr[i]);
+      else
+      {
+         fprintf(stderr, '%s!\n', getBusProtocolErrorText(result));
+         // Stop for fatal errors
+         if (!(result & FTALK_BUS_PROTOCOL_ERROR_CLASS))
+            return;
+      }
+
+#ifdef __WIN32__
+      Sleep(1000);
+#else
+      sleep(1);
+#endif
+   }
+}
+
+
+#if defined(_WIN32_WCE)
+int wmain()
+#else
+int main()
+#endif
+{
+   openProtocol();
+
+   runPollLoop();
+
+   closeProtocol();
+   return (EXIT_SUCCESS);
+}
+.fi
+.PP
+ 

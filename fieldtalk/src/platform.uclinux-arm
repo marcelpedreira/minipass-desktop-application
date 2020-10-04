@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# platform.uclinux-arm - Platform configuration shell script
+#
+# Copyright (c) proconX Pty Ltd. All rights reserved.
+#
+# Note: Build environments and compiler versions are changing frequently.
+# If you cannot build this package, please modify this script and report
+# the changes to support@modbusdriver.com. Thank You.
+#
+# Requires: Linux as development host and an installed uCLinux 2.4 tool chain
+#
+
+
+#
+# Set platform to be uCLinux ARM
+#
+ARCHITECTURE="arm-elf"
+CPU_FLAG=""
+
+OS_NAME="ucLinux"
+OS_EXT=${OS_NAME}-${ARCHITECTURE}${CPU_FLAG}
+OS_TIMER_TYPE=posix1
+OS_SERIAL_TYPE=linux
+CC="${ARCHITECTURE}-g++ ${CPU_FLAG}"
+CXX="${ARCHITECTURE}-g++ ${CPU_FLAG}"
+AR="${ARCHITECTURE}-ar"
+CFLAGS="-Wall -Dlinux"
+CXXFLAGS="${CFLAGS}"
+LDFLAGS="-elf2flt -lc -lgcc"
+ARFLAGS="rcv"
+
+echo ""
+echo "Platform configured as: ${OS_EXT}"
+echo ""
+

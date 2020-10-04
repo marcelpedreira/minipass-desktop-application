@@ -1,0 +1,90 @@
+.TH "Device and Vendor Specific Modbus Functions" 3 "29 Jan 2010" "Version Library version 2.6" "FieldTalk Modbus Master C++ Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Device and Vendor Specific Modbus Functions \- 
+.PP
+Some device specific or vendor specific functions and enhancements are supported.  
+
+.SS "Advantec ADAM 5000/6000 Series Commands"
+ 
+.in +1c
+.ti -1c
+.RI "int \fBadamSendReceiveAsciiCmd\fP (const char *const commandSz, char *responseSz)"
+.br
+.RI "\fISend/Receive ADAM 5000/6000 ASCII command. \fP"
+.in -1c
+.SS "Custom Function Codes"
+ 
+.in +1c
+.ti -1c
+.RI "int \fBcustomFunction\fP (int slaveAddr, int functionCode, void *requestData, size_t requestLen, void *responseData, size_t *responseLenPtr)"
+.br
+.RI "\fIUser Defined Function Code
+.PP
+This method can be used to implement User Defined Function Codes. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Some device specific or vendor specific functions and enhancements are supported. 
+.SH "Function Documentation"
+.PP 
+.SS "int adamSendReceiveAsciiCmd (const char *const  commandSz, char * responseSz)\fC [inherited]\fP"
+.PP
+Send/Receive ADAM 5000/6000 ASCII command. Sends an ADAM 5000/6000 ASCII command to the device and receives the reply as ASCII string. (e.g. '$01M' to retrieve the module name)
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcommandSz\fP Buffer which holds command string. Must not be longer than 255 characters. 
+.br
+\fIresponseSz\fP Buffer which holds response string. Must be a buffer of 256 bytes. A possible trailing CR is removed.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+FTALK_SUCCESS on success or error code. See \fBError Management\fP for a list of error codes. 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+No broadcast supported 
+.RE
+.PP
+
+.SS "int customFunction (int slaveAddr, int functionCode, void * requestData, size_t requestLen, void * responseData, size_t * responseLenPtr)\fC [inherited]\fP"
+.PP
+User Defined Function Code
+.PP
+This method can be used to implement User Defined Function Codes. The caller has only to pass the user data to this function. The assembly of the Modbus frame (the so called ADU) including checksums, slave address and function code and subsequentially the transmission, is taken care of by this method.
+.PP
+The modbus specification reserves function codes 65-72 and 100-110 for user defined functions.
+.PP
+\fBNote:\fP
+.RS 4
+Modbus functions usually have an implied response length and therefore the number of bytes expected to be received is known at the time when sending the request. In case of a custom Modbus function with an open or unknown response length, this function can not be used.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIslaveAddr\fP Modbus address of slave device or unit identifier (Range: 0 - 255) 
+.br
+\fIfunctionCode\fP Custom function code to be used for Modbus transaction (1-127) 
+.br
+\fIrequestData\fP Pointer to data sent as request (not including slave address or function code) 
+.br
+\fIrequestLen\fP Length of request data structure (0-252) 
+.br
+\fIresponseData\fP Pointer to data structure which holds response data 
+.br
+\fIresponseLenPtr\fP Length of response data (0-252). The number of bytes expected to be sent as response must be known when submitting the request.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+FTALK_SUCCESS on success or error code. See \fBError Management\fP for a list of error codes. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for FieldTalk Modbus Master C++ Library from the source code.

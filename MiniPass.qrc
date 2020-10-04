@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>resourses/add.png</file>
+        <file>resourses/client.png</file>
+        <file>resourses/clients.png</file>
+        <file>resourses/disk.png</file>
+        <file>resourses/id_card.png</file>
+        <file>resourses/security_agent.png</file>
+        <file>resourses/20131203025132621_easyicon_net_32.png</file>
+        <file>resourses/DB Update.png</file>
+        <file>resourses/puerta-icono-6807-32.png</file>
+        <file>resourses/tarjeta_expansion.png</file>
+    </qresource>
+</RCC>

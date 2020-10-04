@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# platform.linux - Platform detection and configuration shell script
+#
+# Copyright (c) proconX Pty Ltd. All rights reserved.
+#
+# Note: Build environments and compiler versions are changing frequently.
+# If you cannot build this package, please modify this script and report
+# the changes to support@modbusdriver.com. Thank You.
+#
+# Requires: A supported GNU/Linux version
+#
+
+
+#
+# Detect platform and configure compiler settings
+#
+UNAME_MACHINE=`(uname -m) 2>/dev/null` || UNAME_MACHINE=unknown
+UNAME_SYSTEM=`(uname -s) 2>/dev/null`  || UNAME_SYSTEM=unknown
+UNAME_RELEASE=`(uname -r) 2>/dev/null` || UNAME_RELEASE=unknown
+UNAME_VERSION=`(uname -v) 2>/dev/null` || UNAME_VERSION=unknown
+case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
+   *:Linux:*:*)
+      OS_NAME="Linux"
+      OS_EXT=linux
+      OS_TIMER_TYPE=posix1
+      OS_SERIAL_TYPE=linux
+      CC="gcc"
+      CXX="g++"
+      AR="ar"
+      CFLAGS="-O2 -Wall"
+      CXXFLAGS="${CFLAGS}"
+      LDFLAGS="-lrt"
+      ARFLAGS="rcv"
+   ;;
+   *:OpenBSD:*:*|*:FreeBSD:*:*|*:NetBSD:*:*)
+      OS_NAME="${UNAME_SYSTEM}"
+      OS_EXT=`(echo ${OS_NAME}_${UNAME_MACHINE} | tr "[:upper:]" "[:lower:]") 2>/dev/null` || OS_EXT=${OS_NAME}_${UNAME_MACHINE}
+      OS_TIMER_TYPE=posix1
+      OS_SERIAL_TYPE=linux
+      CC="gcc"
+      CXX="g++"
+      AR="ar"
+      CFLAGS="-O2 -Wall"
+      CXXFLAGS="${CFLAGS}"
+      LDFLAGS=""
+      ARFLAGS="rcv"
+   ;;
+   *)
+      echo ""
+      echo "Error! No supported platform detected."
+      echo ""
+      exit 1
+   ;;
+esac
+
+echo ""
+echo "Platform detected as: ${OS_NAME}"
+echo "Unix name: ${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}"
+echo ""
+

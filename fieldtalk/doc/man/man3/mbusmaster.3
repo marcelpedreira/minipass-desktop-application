@@ -1,0 +1,41 @@
+.TH "Data and Control Functions for all Modbus Protocol Flavours" 3 "29 Jan 2010" "Version Library version 2.6" "FieldTalk Modbus Master C++ Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Data and Control Functions for all Modbus Protocol Flavours \- 
+.PP
+This Modbus protocol library implements the most commonly used data functions as well as some control functions.  
+This Modbus protocol library implements the most commonly used data functions as well as some control functions. 
+
+The functions to perform PLC program download and other device specific functions are outside the scope of this library.
+.PP
+All Bit Access and 16 Bits Access Modbus Function Codes have been implemented. In addition the most frequently used Diagnostics Function Codes have been implemented. This rich function set enables a user to solve nearly every Modbus data transfer problem.
+.PP
+The following table lists the supported Modbus function codes:
+.PP
+Function CodeCurrent TerminologyClassic Terminology
+.PP
+Bit Access   1 Read Coils Read Coil Status  2 Read Discrete Inputs Read Input Status  5 Write Single Coil Force Single Coil  15 (0F hex)Write Multiple Coils Force Multiple Coils 
+.PP
+16 Bits Access   3 Read Multiple Registers Read Holding Registers  4 Read Input Registers Read Input Registers  6 Write Single Register Preset Single Register  16 (10 Hex)Write Multiple Registers Preset Multiple Registers  22 (16 hex)Mask Write Register Mask Write 4X Register  23 (17 hex)Read/Write Multiple RegistersRead/Write 4X Registers 
+.PP
+Diagnostics   7 Read Exception Status Read Exception Status 
+.PP
+8 subcode 00Diagnostics - Return Query Data Diagnostics - Return Query Data 
+.PP
+8 subcode 01Diagnostics - Restart Communications OptionDiagnostics - Restart Communications Option 
+.PP
+Vendor Specific  
+.PP
+Advantech Send/Receive ADAM 5000/6000 ASCII commands  
+.PP
+.PP
+\fBRemarks:\fP
+.RS 4
+When passing register numbers and discrete numbers to FieldTalk library functions you have to use the the Modbus register and discrete numbering scheme. See \fBRegister and Discrete Numbering Scheme\fP. (Internally the functions will deduct 1 from the start register value before transmitting the value to the slave device.)
+.RE
+.PP
+Using multiple instances of a MbusMaster... class enables concurrent protocol transfer on different communication channels (e.g. multiple TCP/IP sessions in separate threads or multiple COM ports in separate threads). 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for FieldTalk Modbus Master C++ Library from the source code.

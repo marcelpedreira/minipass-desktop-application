@@ -1,0 +1,174 @@
+.TH "linking" 3 "29 Jan 2010" "Version Library version 2.6" "FieldTalk Modbus Master C++ Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+linking \- Linking your Applications against the Library 
+.SH "Linux, UNIX and QNX Systems: Compiling and Linking Applications"
+.PP
+Let's assume the following project directory structure:
+.PP
+.PP
+.nf
+        myprj
+        |
+        +-- fieldtalk
+           |
+           +-- doc
+           +-- samples
+           +-- src
+           +-- include
+           +-+ lib
+             |
+             +-- linux     (exact name depends on your platform)
+.fi
+.PP
+.PP
+Add the library's include directory to the compiler's include path.
+.PP
+Example: 
+.PP
+.nf
+c++ -Ifieldtalk/include -c myapp.cpp
+
+.fi
+.PP
+.PP
+Add the file name of the library to the file list passed to the linker.
+.PP
+Example: 
+.PP
+.nf
+c++ -o myapp myapp.o fieldtalk/lib/linux/libmbusmaster.a
+
+.fi
+.PP
+.SH "Windows Systems: Compiling and Linking Applications"
+.PP
+Let's assume the following project directory structure:
+.PP
+.PP
+.nf
+        myprj
+        |
+        +-- fieldtalk
+           |
+           +-- doc
+           +-- samples
+           +-- src
+           +-- include
+           +-+ lib
+             |
+             +-- win
+                 |
+                 +-- win32
+                     |
+                     +-- release
+.fi
+.PP
+.PP
+Add the library's include directory to the compiler's include path.
+.PP
+Visual C++ Example: 
+.PP
+.nf
+cl -Ifieldtalk/include -c myapp.cpp
+
+.fi
+.PP
+ Borland C++ Example: 
+.PP
+.nf
+bcc32 -Ifieldtalk/include -c myapp.cpp
+
+.fi
+.PP
+.PP
+Add the file name of the library to the file list passed to the linker. Visual C++ only: If you are using the Modbus/TCP protocol you have to add the Winsock2 library Ws2_32.lib.
+.PP
+Visual C++ Example:
+.PP
+.PP
+.nf
+cl -Fe myapp myapp.obj
+   fieldtalk/lib/win/win32/release/libmbusmaster.lib Ws2_32.lib
+.fi
+.PP
+.SH "Linux, UNIX and QNX Systems: Unpacking and Compiling the Source"
+.PP
+1. Download and save the zipped tarball into your project directory.
+.PP
+2. Uncompress the zipped tarball using gzip:
+.PP
+.PP
+.nf
+# gunzip FT-MBMP-??-ALL.2.6.0.tar.gz
+.fi
+.PP
+.PP
+3. Untar the tarball
+.PP
+.PP
+.nf
+# tar xf FT-MBMP-??-ALL.2.6.0.tar
+.fi
+.PP
+.PP
+The tarball will create the following directory structure in your project directory:
+.PP
+.PP
+.nf
+             myprj
+               |
+               +-- fieldtalk
+                   |
+                   +-- doc
+                   +-- include
+                   +-- src
+                   +-- samples
+.fi
+.PP
+.PP
+4. Compile the library from the source code. Enter the FieldTalk src directory and call the make script:
+.PP
+.PP
+.nf
+# cd fieldtalk/src
+# ./make
+.fi
+.PP
+.PP
+The make shell script tries to detect your platform and executes the compiler and linker commands.
+.PP
+The compiler and linker configuration is contained in the file src/platform.
+.PP
+To cross-compile for ucLinux or arm-linux pass uclinux or arm-linux as a parameter to the the make script:
+.PP
+.PP
+.nf
+# ./make arm-linux
+.fi
+.PP
+.PP
+5. The library will be compiled into one of the following platform specfic sub-directories:
+.PP
+\fBPlatform\fP \fBLibrary Directory\fP Linux lib/linux QNX 6 lib/qnx6 QNX 4 lib/qnx4 Irix lib/irix OSF1/True 64/Digital UNIX lib/osf Solaris lib/solaris HP-UX lib/hpux IBM AIX lib/aix 
+.PP
+Your directory structure looks now like: 
+.PP
+.nf
+        myprj
+        |
+        +-- fieldtalk
+           |
+           +-- doc
+           +-- src
+           +-- include
+           +-- samples
+           +-+ lib
+             |
+             +-- {platform}    (exact name depends on platform)
+
+.fi
+.PP
+.PP
+6. The library is ready to be used. 

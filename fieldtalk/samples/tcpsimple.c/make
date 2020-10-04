@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# make - FieldTalk C example applications build shell script
+#
+# proconX Pty Ltd
+#
+# Note: Build environments and compiler versions are changing frequently.
+# If you cannot build this module, please modify this script and report
+# the changes to support@modbusdriver.com. Thank You.
+#
+# Requires: A supported UNIX version (see platform file)
+#
+
+
+#
+# Detect platform and configure compiler settings
+#
+if test -x ../../src/platform."$1"; then
+   . ../../src/platform."$1"
+else
+   . ../../src/platform
+fi
+
+
+#
+# Definition of files involved in the compilation process
+#
+TARGET_NAME=tcpsimple
+
+LIB_DIR=../../lib/${OS_EXT}
+
+LIB_NAME=${LIB_DIR}/libmbusmaster.a
+
+#
+# Compilation commands
+# Note: LDFLAGS has to be the last entry for linking with m68k-elf-g++/ucLinux!
+#
+# Compile with C
+echo ${CC} ${CFLAGS} -c -I../../include -o${TARGET_NAME}.o ${TARGET_NAME}.c
+(${CC} ${CFLAGS} -c -I../../include -o${TARGET_NAME}.o ${TARGET_NAME}.c) || exit 1
+# Link with CXX to make sure we link against C++ run-time libs
+echo ${CXX} -o ${TARGET_NAME} ${TARGET_NAME}.o ${LIB_NAME} ${LDFLAGS}
+(${CXX} -o ${TARGET_NAME} ${TARGET_NAME}.o ${LIB_NAME} ${LDFLAGS} ) || exit 1
+
+echo ""
+echo "${TARGET_NAME} successfully compiled."
+echo ""
+

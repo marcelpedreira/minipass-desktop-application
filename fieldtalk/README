@@ -1,0 +1,118 @@
+                    FieldTalk(TM) Modbus Master C++ Library
+                         FT-MBMP-LX-EVAL Read Me Notes
+
+   Revision 2.6.1, 2010-01-29
+
+   Welcome  to  the evaluation of FieldTalk(TM) Modbus Master C++ Library
+   Linux Edition!
+
+   This evaluation package allows you to:
+     * Read the product manual
+     * Browse the Modbus Master library API documentation
+     * Study the source code of the Modbus examples provided
+     * Modify and compile the Modbus examples
+     * Create your own Modbus programs and test them using the library
+     _________________________________________________________________
+
+Documentation
+
+   To browse the API Documentation please click [1]here.
+
+   To read or print the Product Manual please click [2]here.
+
+   Please  refer to the additional Application Notes published on our web
+   site: [3]http://www.modbusdriver.com/doc
+     _________________________________________________________________
+
+Limitations and Restrictions
+
+   The evaluation version is functional limited to 100 modbus operations.
+   Once  100  operations  are  reached, all library functions will return
+   error code 3 FTALK_EVALUATION_EXPIRED.
+
+   In  addition  it  does not contain any redistributable components. You
+   must not redistribute any source, object or library files.
+
+   This package is provided for the purpose of evaluating whether to
+   purchase an ongoing license to use the Package.
+
+   THE EVALUATION PERIOD IS LIMITED TO 30 DAYS and does not include the
+   right to reproduce and distribute Applications using the Package. At
+   the end of the evaluation period, if You do not purchase a license,
+   You must uninstall the Package from the computers or devices You
+   installed it on.
+
+   THE EVALUATION VERSION IS FUNCTIONAL LIMITED TO 100 MODBUS OPERATIONS!
+     _________________________________________________________________
+
+Files part of the package
+
+   README, README.pdf
+          These Read Me notes.
+
+   LICENSE-LIB, LICENSE-LIB.pdf
+          Library  License  containing  the  Terms & Conditions of use of
+          this software.
+
+   doc/libmbusmaster.pdf
+          Documentation in PDF format.
+
+   doc/html/index.html
+          Documentation in HTML format.
+
+   doc/man
+          Documentation as man pages.
+
+   samples
+          Directory with example programs which can be linked against the
+          evaluation library as a starting point for your application.
+
+   samples/Makefile
+          Makefile to build all example programs.
+
+   include
+          Fieldtalk library C/C++ header files.
+
+   src/platform
+          File  with  platform  specific  definitions required to compile
+          sample applications.
+     _________________________________________________________________
+
+Distributable components
+
+   This is an evaluation edition and does not contain any redistributable
+   components.
+
+  Important
+           You must not redistribute any executables, source, object or library
+           files which are based on this evaluation edition.
+     _________________________________________________________________
+
+   Copyright (c) 2002-2010 proconX Pty Ltd. All rights reserved.
+
+   Email: [4]mail@modbusdriver.com
+
+   THIS  IS  PROPRIETARY  SOFTWARE  AND  YOU  NEED  A  LICENSE  TO USE OR
+   REDISTRIBUTE.
+
+   Please refer to file LICENSE-LIB for license and distribution terms.
+
+   THIS  SOFTWARE IS PROVIDED BY PROCONX AND CONTRIBUTORS "AS IS" AND ANY
+   EXPRESS  OR  IMPLIED  WARRANTIES,  INCLUDING,  BUT NOT LIMITED TO, THE
+   IMPLIED  WARRANTIES  OF  MERCHANTABILITY  AND FITNESS FOR A PARTICULAR
+   PURPOSE  ARE  DISCLAIMED. IN NO EVENT SHALL PROCONX OR CONTRIBUTORS BE
+   LIABLE  FOR  ANY  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+   CONSEQUENTIAL  DAMAGES  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+   SUBSTITUTE  GOODS  OR  SERVICES;  LOSS  OF  USE,  DATA, OR PROFITS; OR
+   BUSINESS  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+   WHETHER  IN  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     _________________________________________________________________
+
+References
+
+   1. file://localhost/C:/prj/fieldtalk/master-cpp/doc/html/index.html
+   2. file://localhost/C:/prj/fieldtalk/master-cpp/doc/libmbusmaster.pdf
+   3. http://www.modbusdriver.com/doc
+   4. mailto:mail@modbusdriver.com
